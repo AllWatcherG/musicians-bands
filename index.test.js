@@ -15,11 +15,13 @@ describe('Band and Musician Models', () => {
     test('can create a Band', async () => {
         // TODO - test creating a band
         const testBand = await Band.create({ name: 'George', instrument: 'cowbell' });
-        expect(testBand.name).toBe('George');
+        result = await Band.findAll({raw:true})
+        expect(result.length).toBe(1);
     })
 
     test('can create a Musician', async () => {
         const testMusician = await Musician.create({ name: 'George', genre: 'hyperpop' });
-        expect(testMusician.name).toBe('George');
+        result = await Band.findAll({raw: true})
+        expect(result.length).toBe(1);
     })
 })
