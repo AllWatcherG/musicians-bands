@@ -72,4 +72,18 @@ describe('Band and Musician Models', () => {
         expect(associatedSongs2.length).toBe(2);
         expect(associatedBands.length).toBe(2)
     })
+
+    test('Eager Loading', async() => {
+        const band4 = await Band.create({ name: 'Bring Me The Horizon', genre: "Alt" });
+        const musician4 = await Musician.create({ name: 'George Michael', instrument: 'guitar', BandId: band4.id });
+        const musician5 = await Musician.create({ name: 'Yeat', instrument: 'gekker', BandId: band4.id });
+        const bandWithMusicians = await Band.findOne({
+            where: { id: band4.id },
+            include: Musician,
+          });
+          testBMLength = bandWithMusicians.Musicians.length
+          expect(bandWithMusicians.id).toBe(band4.id);
+          expect(bandWithMusicians.name).toBe(band4.name);
+          expect(testBMLength).toBe(2)
+    })
 })
