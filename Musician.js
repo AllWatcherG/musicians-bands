@@ -10,7 +10,7 @@ class Musician extends Model{
 
 }
 
-Musician.init({name: Sequelize.STRING, genre: Sequelize.STRING}, {sequelize})
+Musician.init({name: Sequelize.STRING, instrument: Sequelize.STRING}, {sequelize})
 
 module.exports = {
     Musician

@@ -8,7 +8,7 @@ const {Model ,Sequelize, sequelize} = require('./db');
 class Band extends Model{
     
 }
-Band.init({name : Sequelize.STRING, instrument: Sequelize.STRING}, {sequelize})
+Band.init({name : Sequelize.STRING, genre: Sequelize.STRING}, {sequelize})
 module.exports = {
     Band
 };
