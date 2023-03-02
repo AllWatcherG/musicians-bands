@@ -77,13 +77,22 @@ describe('Band and Musician Models', () => {
         const band4 = await Band.create({ name: 'Bring Me The Horizon', genre: "Alt" });
         const musician4 = await Musician.create({ name: 'George Michael', instrument: 'guitar', BandId: band4.id });
         const musician5 = await Musician.create({ name: 'Yeat', instrument: 'gekker', BandId: band4.id });
+        const song6 = await Song.create({ title: 'Paint It Black', year: 1990});
+        const song7 = await Song.create({ title: 'Stairway to Heaven', year:1991 });
+        const song8 = await Song.create({ title: 'Paranoid', year: 1991 });
+        await band4.addSong(song6);
+        await band4.addSong(song7);
+        await band4.addSong(song8);
+
         const bandWithMusicians = await Band.findOne({
             where: { id: band4.id },
-            include: Musician,
+            include: [{model: Musician}, {model: Song}],
           });
-          testBMLength = bandWithMusicians.Musicians.length
-          expect(bandWithMusicians.id).toBe(band4.id);
-          expect(bandWithMusicians.name).toBe(band4.name);
-          expect(testBMLength).toBe(2)
+        testBMLength = bandWithMusicians.Musicians.length
+        testBSLength = bandWithMusicians.Songs.length
+        expect(bandWithMusicians.id).toBe(band4.id);
+        expect(bandWithMusicians.name).toBe(band4.name);
+        expect(testBMLength).toBe(2)
+        expect(testBSLength).toBe(3)
     })
 })
